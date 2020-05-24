@@ -6,7 +6,7 @@ A very simple customer listing app.
 
 Hypothetically this should be listing B2B customers, however the current initial data represent my work experiences employers and the companies of my job applications (you can say from my point of view ─ my customers).
 
-[Live Demo](http://propellerhead.nyzme.com/)
+[Live Demo](http://blockdox.nyzme.com/)
 
 
 ## Requirement Checklist
@@ -21,7 +21,7 @@ Hypothetically this should be listing B2B customers, however the current initial
 | [x] | Click on customer in the list to view their details |  |
 | [x] | Add/Edit notes |  |
 | [x] | Change their status |  |
-| [x] | Full-stack application | <ul><li>Front-end: Typescript, Angular 7+, Redux, SCSS (Bootstrap)</li><li>Back-end: C#, .Net Core 2.1</li><li>Data Store: SQL Server</li><li>Infra: Docker, AWS Lightsail</li></ul> |
+| [x] | Full-stack application | <ul><li>Front-end: Typescript, Angular 7+, Redux, SCSS (Bootstrap)</li><li>Back-end: Python 3.7</li><li>Data Store: PostgreSQL</li><li>Infra: Docker, AWS Lightsail</li></ul> |
 
 
 ## Improvement Recommendations
@@ -37,7 +37,7 @@ Build & Run:
 
 Development:
 - Node, NPM
-- .Net Core 2.1 SDK
+- Python 3.7
 
 
 ## Build
@@ -47,8 +47,9 @@ Run `docker-compose up -d` to build and run the project. Navigate to `http://loc
 ## Development
 For local, none docker-compose development run in order:
 - `docker-compose up -d customerinfo-db`
-- Allow some time for customerinfo-db to finish initializing before issuing `dotnet run`
-- On `./api/` run `dotnet run customerinfo-db=127.0.0.1`
+- Allow some time for customerinfo-db to finish initializing before issuing the next step
+- On `./api/` run only once `python manage.py db upgrade` to scaffold the database
+- On `./api/` run `python manage.py run`
 - On `./web/` run  `ng serve -c local`
 
 If using docker-compose:
