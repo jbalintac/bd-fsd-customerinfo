@@ -1,0 +1,34 @@
+version: '3.0'
+services:
+
+  customerinfo-db:
+    image: postgres
+    container_name: customerinfo-db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: test@#!451aAS
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  customerinfo-api:
+    build: api/.
+    container_name: customerinfo-api
+    restart: on-failure # TODO: Find a way to scaffold initial data elegantly
+    depends_on:
+      - customerinfo-db
+    ports:
+      - 5000:5000
+    environment:
+      ENV: prod
+
+  customerinfo-web:
+    build: web/.
+    container_name: customerinfo-web
+    restart: on-failure # TODO: Find a way to scaffold initial data elegantly
+    depends_on:
+      - customerinfo-api
+    healthcheck:
+      test: curl --fail -s http://customerinfo-api/api/customers/ || exit 1
+    ports:
+      - 4200:80
